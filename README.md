@@ -9,3 +9,9 @@
 
 
 ## 编译生成
+```shell
+mkdir build
+cd build
+cmake .
+cmake --build . -j 4
+```
