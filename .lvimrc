@@ -1,0 +1,2 @@
+" nerdtree过滤文件显示
+let NERDTreeIgnore=['\.con$', '\~$']

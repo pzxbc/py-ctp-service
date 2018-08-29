@@ -4,3 +4,20 @@ _build/
 _generate/
 *.py[cod]
 *.egg-info
+
+# ctp流文件
+*.con
+
+# clang生成的文件
+*.plist
+
+# cmake gitignore
+CMakeCache.txt
+CMakeFiles
+CMakeScripts
+Testing
+Makefile
+cmake_install.cmake
+install_manifest.txt
+compile_commands.json
+CTestTestfile.cmake
