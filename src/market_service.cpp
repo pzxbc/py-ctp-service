@@ -20,8 +20,7 @@ MarketService::MarketService(const string &front_addr, const string &flow_path)
 
 MarketService::~MarketService()
 {
-    md_api->Release();
-    md_api = nullptr;
+    this->release();
 }
 
 void MarketService::join()
@@ -32,8 +31,11 @@ void MarketService::join()
 
 void MarketService::release()
 {
-    md_api->Release();
-    md_api = nullptr;
+    if(md_api != nullptr)
+    {
+        md_api->Release();
+        md_api = nullptr;
+    }
 }
 
 int MarketService::reqUserLogin(const string &broker_id, const string &user_id, const string &password)

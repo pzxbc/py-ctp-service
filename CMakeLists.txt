@@ -16,9 +16,9 @@ link_directories(${CTP_LINK_DIR})
 
 add_subdirectory(third-party-libs/pybind11)
 
-add_library(ctp MODULE src/main.cpp src/market_service.cpp src/data_convertor.cpp)
+add_library(ctp MODULE src/main.cpp src/market_service.cpp src/data_convertor.cpp src/trader_service.cpp)
 # target_link_libraries(CTPBind PRIVATE pybind11::module)
-target_link_libraries(ctp PRIVATE pybind11::module PUBLIC thostmduserapi)
+target_link_libraries(ctp PRIVATE pybind11::module PUBLIC thostmduserapi thosttraderapi boost_locale)
 # target_link_libraries(CTPBind thosttraderapi)
 set_target_properties(ctp PROPERTIES PREFIX "${PYTHON_MODULE_PREFIX}" SUFFIX "${PYTHON_MODULE_EXTENSION}")
 

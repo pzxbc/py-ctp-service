@@ -1,6 +1,5 @@
 #include "data_convertor.h"
 
-
 CTP_STRUCT convertCThostFtdcRspUserLoginField(CThostFtdcRspUserLoginField *pRspUserLogin)
 {
     CTP_STRUCT d;
@@ -33,7 +32,7 @@ CTP_STRUCT convertCThostFtdcRspInfoField(CThostFtdcRspInfoField *pRspInfo)
 {
     CTP_STRUCT d;
     d["ErrorID"] = pRspInfo->ErrorID;
-    d["ErrorMsg"] = pRspInfo->ErrorMsg;
+    d["ErrorMsg"] = trGBK(pRspInfo->ErrorMsg);
     return d;
 }
 
@@ -92,5 +91,15 @@ CTP_STRUCT convertCThostFtdcDepthMarketDataField(CThostFtdcDepthMarketDataField 
     d["AskVolume5"] = pDepthMarketData->AskVolume5;
     d["AveragePrice"] = pDepthMarketData->AveragePrice;
     d["ActionDay"] = pDepthMarketData->ActionDay;
+    return d;
+}
+
+CTP_STRUCT convertCThostFtdcSettlementInfoConfirmField(CThostFtdcSettlementInfoConfirmField *pSettlementInfoConfirm)
+{
+    CTP_STRUCT d;
+    d["BrokerID"] = pSettlementInfoConfirm->BrokerID;
+    d["InvestorID"] = pSettlementInfoConfirm->InvestorID;
+    d["ConfirmDate"] = pSettlementInfoConfirm->ConfirmDate;
+    d["ConfirmTime"] = pSettlementInfoConfirm->ConfirmTime;
     return d;
 }

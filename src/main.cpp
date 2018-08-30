@@ -4,6 +4,8 @@
 
 #include "market_service.h"
 #include "py_market_service.h"
+#include  "trader_service.h"
+#include "py_trader_service.h"
 
 using namespace std;
 namespace py = pybind11;
@@ -19,4 +21,11 @@ PYBIND11_MODULE(ctp, m) {
         .def("reqUserLogout", &MarketService::reqUserLogout)
         .def("subscribeMarketData", &MarketService::subscribeMarketData)
         .def("unSubscribeMarketData", &MarketService::unSubscribeMarketData);
+    py::class_<TraderService, PyTraderService>(m, "TraderService")
+        .def(py::init<const string &, const string &>(), "front_addr"_a, "flow_path"_a)
+        .def("join", &TraderService::join)
+        .def("release", &TraderService::release)
+        .def("reqUserLogin", &TraderService::reqUserLogin)
+        .def("reqUserLogout", &TraderService::reqUserLogout)
+        .def("reqSettlementInfoConfirm", &TraderService::reqSettlementInfoConfirm);
 }
