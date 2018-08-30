@@ -31,8 +31,11 @@ CTP_STRUCT convertCThostFtdcUserLogoutField(CThostFtdcUserLogoutField *pUserLogo
 CTP_STRUCT convertCThostFtdcRspInfoField(CThostFtdcRspInfoField *pRspInfo)
 {
     CTP_STRUCT d;
-    d["ErrorID"] = pRspInfo->ErrorID;
-    d["ErrorMsg"] = trGBK(pRspInfo->ErrorMsg);
+    if(pRspInfo)
+    {
+        d["ErrorID"] = pRspInfo->ErrorID;
+        d["ErrorMsg"] = trGBK(pRspInfo->ErrorMsg);
+    }
     return d;
 }
 
@@ -103,3 +106,42 @@ CTP_STRUCT convertCThostFtdcSettlementInfoConfirmField(CThostFtdcSettlementInfoC
     d["ConfirmTime"] = pSettlementInfoConfirm->ConfirmTime;
     return d;
 }
+
+CTP_STRUCT convertCThostFtdcInstrumentField(CThostFtdcInstrumentField *pInstrument)
+{
+    CTP_STRUCT d;
+    auto s = pInstrument;
+    d["InstrumentID"] = s->InstrumentID;
+    d["ExchangeID"] = s->ExchangeID;
+    d["InstrumentName"] = trGBK(s->InstrumentName);
+    d["ExchangeInstID"] = s->ExchangeInstID;
+    d["ProductID"] = s->ProductID;
+    d["ProductClass"] = s->ProductClass;
+    d["DeliveryYear"] = s->DeliveryYear;
+    d["DeliveryMonth"] = s->DeliveryMonth;
+    d["MaxMarketOrderVolume"] = s->MaxMarketOrderVolume;
+    d["MinMarketOrderVolume"] = s->MinMarketOrderVolume;
+    d["MaxLimitOrderVolume"] = s->MaxLimitOrderVolume;
+    d["MinLimitOrderVolume"] = s->MinLimitOrderVolume;
+    d["VolumeMultiple"] = s->VolumeMultiple;
+    d["PriceTick"] = s->PriceTick;
+    d["CreateDate"] = s->CreateDate;
+    d["OpenDate"] = s->OpenDate;
+    d["ExpireDate"] = s->ExpireDate;
+    d["StartDelivDate"] = s->StartDelivDate;
+    d["EndDelivDate"] = s->EndDelivDate;
+    d["InstLifePhase"] = s->InstLifePhase;
+    d["IsTrading"] = s->IsTrading;
+    d["PositionType"] = s->PositionType;
+    d["PositionDateType"] = s->PositionDateType;
+    d["LongMarginRatio"] = s->LongMarginRatio;
+    d["ShortMarginRatio"] = s->ShortMarginRatio;
+    d["MaxMarginSideAlgorithm"] = s->MaxMarginSideAlgorithm;
+    d["UnderlyingInstrID"] = s->UnderlyingInstrID;
+    d["StrikePrice"] = s->StrikePrice;
+    d["OptionsType"] = s->OptionsType;
+    d["UnderlyingMultiple"] = s->UnderlyingMultiple;
+    d["CombinationType"] = s->CombinationType;
+    return d;
+}
+

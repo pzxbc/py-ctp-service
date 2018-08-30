@@ -26,6 +26,10 @@ class TraderService(ctp.TraderService):
 
     def OnRspSettlementInfoConfirm(self, confirm_info, rsp_info):
         print(confirm_info, rsp_info)
+        self.reqQryInstrument('SM905', 'CZCE')
+
+    def OnRspQryInstrument(self, contract_info, rsp_info, is_last):
+        print(contract_info, rsp_info, is_last)
 
 
 def main():

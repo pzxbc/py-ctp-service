@@ -6,9 +6,13 @@
 
 #include <string>
 #include <boost/locale/encoding.hpp>
-inline std::string trGBK(const std::string & str)
+inline std::string trGBK(const std::string &str)
 {
     return boost::locale::conv::between(str, "UTF-8", "GBK");
+}
+inline const char* nullToEmpty(const char* s)
+{
+    return (s ? s : "");
 }
 
 CTP_STRUCT convertCThostFtdcRspUserLoginField(CThostFtdcRspUserLoginField *pRspUserLogin);
@@ -22,3 +26,5 @@ CTP_STRUCT convertCThostFtdcSpecificInstrumentField(CThostFtdcSpecificInstrument
 CTP_STRUCT convertCThostFtdcDepthMarketDataField(CThostFtdcDepthMarketDataField *pDepthMarketData);
 
 CTP_STRUCT convertCThostFtdcSettlementInfoConfirmField(CThostFtdcSettlementInfoConfirmField *pSettlementInfoConfirm);
+
+CTP_STRUCT convertCThostFtdcInstrumentField(CThostFtdcInstrumentField *pInstrument);

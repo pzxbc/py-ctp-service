@@ -4,6 +4,7 @@
 
 #include <ThostFtdcTraderApi.h>
 
+#include "const.h"
 #include "data_types.h"
 
 using namespace std;
@@ -25,6 +26,8 @@ public:
     int reqUserLogout(const string &broker_id, const string &user_id);
     // 投资结算结果确认
     int reqSettlementInfoConfirm(const string &broker_id, const string &user_id, const string &confirm_date, const string &confirm_time);
+    // 请求查询合约
+    int reqQryInstrument(const string &contract_id, const string &exchange_id);
 
 public:
     // ctp callback接口
@@ -37,4 +40,6 @@ public:
     // 投资结算结果确认信息
     void OnRspSettlementInfoConfirm(CThostFtdcSettlementInfoConfirmField *pSettlementInfoConfirm, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) override; 
     virtual void OnRspSettlementInfoConfirm(CTP_STRUCT &confirm_info, CTP_STRUCT &rsp_info);
+    void OnRspQryInstrument(CThostFtdcInstrumentField *pInstrument, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) override;
+    virtual void OnRspQryInstrument(CTP_STRUCT &contract_info, CTP_STRUCT &rsp_info, bool is_last);
 };

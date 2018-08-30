@@ -65,4 +65,16 @@ class PyTraderService : public TraderService
             rsp_info
             );
     }
+    void OnRspQryInstrument(CTP_STRUCT &contract_info, CTP_STRUCT &rsp_info, bool is_last) override
+    {
+        py::gil_scoped_acquire acquire;
+        PYBIND11_OVERLOAD(
+            void,
+            TraderService,
+            OnRspQryInstrument,
+            contract_info,
+            rsp_info,
+            is_last
+            );
+    }
 };

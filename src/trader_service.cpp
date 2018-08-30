@@ -2,6 +2,7 @@
 #include "data_convertor.h"
 
 #include <pybind11/pybind11.h>
+#include <regex>
 
 namespace py = pybind11;
 
@@ -71,6 +72,25 @@ int TraderService::reqSettlementInfoConfirm(const string &broker_id, const strin
     return trader_api->ReqSettlementInfoConfirm(&confirm_field, ++request_id);
 }
 
+int TraderService::reqQryInstrument(const string &contract_id, const string &exchange_id)
+{
+    CThostFtdcQryInstrumentField instrument_field;
+    memset(&instrument_field, 0, sizeof(CThostFtdcQryInstrumentField));
+    strcpy(instrument_field.InstrumentID, contract_id.c_str());
+    strcpy(instrument_field.ExchangeID, exchange_id.c_str());
+    strcpy(instrument_field.ExchangeInstID, contract_id.c_str());
+    regex pattern("\\d");
+    smatch sm;
+    regex_search(contract_id, sm, pattern);
+    string product_id{""};
+    if(!sm.empty())
+    {
+        product_id = contract_id.substr(0, sm.position());
+    }
+    strcpy(instrument_field.ProductID, product_id.c_str());
+    return trader_api->ReqQryInstrument(&instrument_field, ++request_id);
+}
+
 
 // CTP 回调接口
 
@@ -111,6 +131,7 @@ void TraderService::OnRspUserLogout(CThostFtdcUserLogoutField *pUserLogout, CTho
 
 void TraderService::OnRspUserLogout(CTP_STRUCT &user_logout, CTP_STRUCT &rsp_info)
 {
+    py::gil_scoped_acquire acquire;
     py::print("TraderService::OnRspUserLogout not implemented");
 }
 
@@ -123,5 +144,18 @@ void TraderService::OnRspSettlementInfoConfirm(CThostFtdcSettlementInfoConfirmFi
 
 void TraderService::OnRspSettlementInfoConfirm(CTP_STRUCT &confirm_field, CTP_STRUCT &rsp_info)
 {
+    py::gil_scoped_acquire acquire;
     py::print("TraderService::OnRspSettlementInfoConfirm not implemented");
+}
+
+void TraderService::OnRspQryInstrument(CThostFtdcInstrumentField *pInstrument, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast)
+{
+    auto contract_info = convertCThostFtdcInstrumentField(pInstrument);
+    auto rsp_info = convertCThostFtdcRspInfoField(pRspInfo);
+    this->OnRspQryInstrument(contract_info, rsp_info, bIsLast);
+}
+void TraderService::OnRspQryInstrument(CTP_STRUCT &contract_info, CTP_STRUCT &rsp_info, bool is_last)
+{
+    py::gil_scoped_acquire acquire;
+    py::print("TraderService::OnRspQryInstrument not implemented");
 }
