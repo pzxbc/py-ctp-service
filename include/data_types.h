@@ -8,3 +8,8 @@
 using namespace std;
 
 typedef map<string, boost::variant<int, double, string>> CTP_STRUCT;
+
+/* class ExchangeID */
+/* { */
+    
+/* }; */

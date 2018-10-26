@@ -12,14 +12,14 @@ using namespace std;
 namespace py = pybind11;
 using namespace pybind11::literals;
 
-PYBIND11_MODULE(ctp, m) {
+PYBIND11_MODULE(c_ctp, m) {
     m.doc() = "ctp service, include market-service and trader-service";
-    py::enum_<ExchangeID>(m, "ExchangeID", py::arithmetic())
-        .value("SHFE", ExchangeID::SHFE)
-        .value("CZCE", ExchangeID::CZCE)
-        .value("DCE", ExchangeID::DCE)
-        .value("CFFEX", ExchangeID::CFFEX)
-        .value("INE", ExchangeID::INE);
+    /* py::enum_<ExchangeID>(m, "ExchangeID", py::arithmetic()) */
+    /*     .value("SHFE", ExchangeID::SHFE) */
+    /*     .value("CZCE", ExchangeID::CZCE) */
+    /*     .value("DCE", ExchangeID::DCE) */
+    /*     .value("CFFEX", ExchangeID::CFFEX) */
+    /*     .value("INE", ExchangeID::INE); */
 
     py::class_<MarketService, PyMarketService>(m, "MarketService")
         .def(py::init<const string &, const string &>(), "front_addr"_a, "flow_path"_a)

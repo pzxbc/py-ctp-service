@@ -4,7 +4,7 @@ set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 add_compile_options(-m64)
 
-project(ctp)
+project(c_ctp)
 
 set(CTP_INC_DIR third-party-libs/ctp/include)
 set(CTP_LINK_DIR third-party-libs/ctp/libs)
@@ -16,9 +16,9 @@ link_directories(${CTP_LINK_DIR})
 
 add_subdirectory(third-party-libs/pybind11)
 
-add_library(ctp MODULE src/main.cpp src/market_service.cpp src/data_convertor.cpp src/trader_service.cpp)
+add_library(c_ctp MODULE src/main.cpp src/market_service.cpp src/data_convertor.cpp src/trader_service.cpp)
 # target_link_libraries(CTPBind PRIVATE pybind11::module)
-target_link_libraries(ctp PRIVATE pybind11::module PUBLIC thostmduserapi thosttraderapi boost_locale)
+target_link_libraries(c_ctp PRIVATE pybind11::module PUBLIC thostmduserapi thosttraderapi boost_locale)
 # target_link_libraries(CTPBind thosttraderapi)
-set_target_properties(ctp PROPERTIES PREFIX "${PYTHON_MODULE_PREFIX}" SUFFIX "${PYTHON_MODULE_EXTENSION}")
+set_target_properties(c_ctp PROPERTIES PREFIX "${PYTHON_MODULE_PREFIX}" SUFFIX "${PYTHON_MODULE_EXTENSION}")
 
